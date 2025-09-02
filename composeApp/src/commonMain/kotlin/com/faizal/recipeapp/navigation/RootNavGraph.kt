@@ -7,19 +7,16 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
 import com.faizal.recipeapp.domain.Person
-import com.faizal.recipeapp.presentation.details.DetailsScreen
-import com.faizal.recipeapp.presentation.home.HomeScreen
+import com.faizal.recipeapp.presentation.root.RootScreen
 import com.faizal.recipeapp.presentation.settings.SettingsScreen
 import kotlinx.serialization.json.Json
 
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun RootNavGraph(navController: NavHostController) {
 
     /**
      * when call inside nav host, animation used to all screen, when inside composable animation used to current screen
@@ -28,42 +25,17 @@ fun SetupNavGraph(navController: NavHostController) {
      */
     NavHost(
         navController = navController,
-        startDestination = Screen.Home,
+        startDestination = Screen.Root,
         enterTransition = { slideInHorizontally{ it } },
         exitTransition = { slideOutHorizontally{ -it } },
         popEnterTransition = { slideInHorizontally{ -it } },
         popExitTransition = { slideOutHorizontally{ it } },
     ) {
-        composable<Screen.Home>{
-            HomeScreen(
-                navigateToDetails = {
-                    navController.navigate(
-                        Screen.Details(
-                            id = 1,
-                            person = Person(
-                                name = "Faizal",
-                                age = 23,
-                                address = "Jakarta"
-                            ).serialize()
-                        )
-                    )
-                },
+
+        composable<Screen.Root>{
+            RootScreen(
                 navigateToSettings = {
                     navController.navigate(Screen.Settings)
-                }
-            )
-        }
-
-        composable<Screen.Details> {
-            val id = it.toRoute<Screen.Details>().id
-            val person = it.toRoute<Screen.Details>().person.deserialize()
-            LaunchedEffect(Unit) {
-                println("PERSON : ${person.name}")
-            }
-            DetailsScreen(
-                id = id,
-                onBackNavigation = {
-                    navController.navigateUp()
                 }
             )
         }
