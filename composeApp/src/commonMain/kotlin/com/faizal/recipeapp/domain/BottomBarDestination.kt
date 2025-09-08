@@ -1,26 +1,36 @@
 package com.faizal.recipeapp.domain
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.faizal.recipeapp.navigation.Screen
+import dev.faizal.navigation.Screen
 
 sealed class BottomBarDestination(
     val screen : Screen,
     val icon : ImageVector
 ){
+
     data object Home : BottomBarDestination(
         screen = Screen.Home,
         icon = Icons.Default.Home
     )
-    data object Profile : BottomBarDestination(
-        screen = Screen.Profile,
-        icon = Icons.Default.Person
+
+    data object Saved : BottomBarDestination(
+        screen = Screen.Saved,
+        icon = Icons.Default.Star
     )
+
+    data object Joke : BottomBarDestination(
+        screen = Screen.Joke,
+        icon = Icons.Default.Face
+    )
+
 }
 
 val bottomBarDestination = listOf(
     BottomBarDestination.Home,
-    BottomBarDestination.Profile
+    BottomBarDestination.Saved,
+    BottomBarDestination.Joke
 )

@@ -1,0 +1,155 @@
+package com.faizal.recipeapp.presentation.screen.root
+
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.faizal.recipeapp.domain.bottomBarDestination
+import com.faizal.recipeapp.presentation.component.CustomNavigationDrawer
+import dev.faizal.navigation.BottomBarNavigationGraph
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.dp
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RootScreen(
+    drawerState : DrawerState,
+    navigateToSettings : () -> Unit
+){
+
+    val scope = rememberCoroutineScope()
+    val navController = rememberNavController()
+
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestinationRoute by remember{
+        derivedStateOf {
+            backStackEntry?.destination?.route
+        }
+    }
+
+    val isTopBarVisible by remember{
+        derivedStateOf {
+            currentDestinationRoute?.contains("Details") == false
+        }
+    }
+
+    CustomNavigationDrawer(
+        drawerState = drawerState,
+        onSettings = navigateToSettings,
+    ){
+        Scaffold(
+            topBar = {
+                AnimatedVisibility(
+                    visible = isTopBarVisible,
+                    enter = slideInVertically(initialOffsetY = { -it }),
+                    exit = slideOutVertically(targetOffsetY = { -it }),
+                    ) {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = parseTopBarTittle(currentDestinationRoute)
+                            )
+                        },
+                        navigationIcon = {
+                            IconButton(
+                                onClick = {
+                                    scope.launch {
+                                        drawerState.open()
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Menu,
+                                    contentDescription = "Menu icon"
+                                )
+                            }
+                        }
+                    )
+                }
+            },
+            bottomBar = {
+                NavigationBar {
+                    bottomBarDestination.forEach { destination ->
+                        NavigationBarItem(
+                            selected = checkIfItemSelected(
+                                currentDestinationRoute = currentDestinationRoute,
+                                currentBottomBarItem = destination.screen.toString()
+                            ),
+                            label = { Text(text = destination.screen.toString()) },
+                            icon = { Icon(imageVector = destination.icon, contentDescription = null) },
+                            onClick = {
+                                navController.navigate(destination.screen){
+                                    popUpTo(navController.graph.findStartDestination().route!!){
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        )
+                    }
+                }
+            }
+        ) { paddingValues ->
+            val animatedTopPadding by animateDpAsState(
+                targetValue = if(isTopBarVisible) paddingValues.calculateTopPadding() else 0.dp,
+                animationSpec = tween(300)
+            )
+            val modifiedPadding = PaddingValues(
+                start = paddingValues.calculateStartPadding(LocalLayoutDirection.current),
+                top = animatedTopPadding,
+                end = paddingValues.calculateEndPadding(LocalLayoutDirection.current),
+                bottom = paddingValues.calculateBottomPadding()
+            )
+            BottomBarNavigationGraph(
+                navController = navController,
+                paddingValues = modifiedPadding
+            )
+
+        }
+    }
+}
+
+private fun parseTopBarTittle(route : String?): String{
+   return if(route?.contains("Home") == true) "Food Recipes"
+   else if(route?.contains("Saved") == true) "Saved Recipes"
+   else if(route?.contains("Joke") == true) "Daily Joke"
+   else "Food Recipes"
+}
+
+private fun checkIfItemSelected(
+    currentDestinationRoute: String?,
+    currentBottomBarItem: String?,
+): Boolean {
+    return if ((currentDestinationRoute?.contains("Home") == true || currentDestinationRoute?.contains(
+            "Details"
+        ) == true) && currentBottomBarItem?.contains("Home") == true
+    ) true
+    else if (currentDestinationRoute?.contains(currentBottomBarItem.toString()) == true) true
+    else false
+}
