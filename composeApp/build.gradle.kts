@@ -7,7 +7,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    kotlin("plugin.serialization") version "2.0.20"
+    alias(libs.plugins.serialization)
+
+//    kotlin("plugin.serialization") version "2.0.20"
 }
 
 kotlin {
@@ -46,6 +48,8 @@ kotlin {
 
             implementation(libs.kotlin.serialization)
             implementation(libs.navigation.compose)
+
+            implementation(project(path = ":navigation"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
