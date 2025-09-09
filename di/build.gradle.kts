@@ -63,9 +63,9 @@ kotlin {
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
 
-                implementation(project(path = ":features:home"))
-                implementation(project(path = ":features:details"))
-                implementation(project(path = ":features:saved"))
+                implementation(project(path = ":features:root:home"))
+                implementation(project(path = ":features:root:details"))
+                implementation(project(path = ":features:root:saved"))
                 implementation(project(path = ":shared"))
             }
         }

@@ -1,4 +1,4 @@
-package com.faizal.recipeapp.presentation.screen.root
+package com.faizal.root
 
 
 import androidx.compose.animation.AnimatedVisibility
@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,29 +21,30 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.faizal.recipeapp.domain.bottomBarDestination
-import com.faizal.recipeapp.presentation.component.CustomNavigationDrawer
-import dev.faizal.navigation.BottomBarNavigationGraph
+import com.faizal.root.component.CustomNavigationDrawer
+import com.faizal.root.domain.bottomBarDestination
+import com.faizal.root.navigation.BottomBarNavigationGraph
 import kotlinx.coroutines.launch
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RootScreen(
-    drawerState : DrawerState,
     navigateToSettings : () -> Unit
 ){
 
     val scope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val navController = rememberNavController()
 
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -60,7 +62,12 @@ fun RootScreen(
 
     CustomNavigationDrawer(
         drawerState = drawerState,
-        onSettings = navigateToSettings,
+        onSettings = {
+            navigateToSettings()
+            scope.launch {
+                drawerState.close()
+            }
+        },
     ){
         Scaffold(
             topBar = {

@@ -4,7 +4,6 @@ plugins {
 
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -68,15 +67,11 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.components.resources)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
-
-                implementation(libs.kotlin.serialization)
                 implementation(libs.navigation.compose)
 
                 implementation(project(path = ":features:settings"))
-                implementation(project(path = ":features:joke"))
-                implementation(project(path = ":features:home"))
-                implementation(project(path = ":features:details"))
-                implementation(project(path = ":features:saved"))
+                implementation(project(path = ":features:root"))
+                implementation(project(path = ":shared"))
             }
         }
 

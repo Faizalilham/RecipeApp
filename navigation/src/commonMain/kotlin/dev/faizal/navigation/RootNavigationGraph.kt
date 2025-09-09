@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.faizal.root.RootScreen
 import dev.faizal.settings.SettingsScreen
+import dev.faizal.shared.navigation.Screen
 
 @Composable
-fun RootNavigationGraph(
-    root : @Composable (navigateToSettings : () -> Unit) -> Unit
-){
+fun RootNavigationGraph(){
 
     val navController = rememberNavController()
     NavHost(
@@ -17,7 +17,11 @@ fun RootNavigationGraph(
         startDestination = Screen.Root,
     ){
         composable<Screen.Root> {
-            root { navController.navigate(Screen.Settings) }
+            RootScreen(
+                navigateToSettings = {
+                    navController.navigate(Screen.Settings)
+                }
+            )
         }
 
         composable<Screen.Settings> {

@@ -1,4 +1,4 @@
-package dev.faizal.navigation
+package com.faizal.root.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -13,6 +13,7 @@ import dev.faizal.details.DetailsScreen
 import dev.faizal.home.HomeScreen
 import dev.faizal.joke.JokeScreen
 import dev.faizal.saved.SavedScreen
+import dev.faizal.shared.navigation.Screen
 
 @Composable
 fun BottomBarNavigationGraph(

@@ -1,4 +1,4 @@
-package dev.faizal.navigation
+package dev.faizal.shared.navigation
 
 import kotlinx.serialization.Serializable
 

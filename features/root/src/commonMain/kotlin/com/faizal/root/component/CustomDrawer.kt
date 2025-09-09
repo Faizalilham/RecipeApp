@@ -1,4 +1,4 @@
-package com.faizal.recipeapp.presentation.component
+package com.faizal.root.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

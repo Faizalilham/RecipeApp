@@ -1,11 +1,11 @@
-package com.faizal.recipeapp.domain
+package com.faizal.root.domain
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
-import dev.faizal.navigation.Screen
+import dev.faizal.shared.navigation.Screen
 
 sealed class BottomBarDestination(
     val screen : Screen,
