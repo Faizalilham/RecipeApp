@@ -16,6 +16,8 @@ kotlin {
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
+
         withHostTestBuilder {
         }
 
@@ -65,15 +67,14 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
+                implementation(compose.material)
                 implementation(compose.ui)
                 implementation(compose.components.resources)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
-
                 implementation(libs.kotlin.serialization)
-
-                implementation(libs.coil3)
                 implementation(libs.koin.core)
-
+                implementation(libs.androidx.material3)
+                implementation(libs.compose.shimmer)
             }
         }
 
@@ -85,9 +86,8 @@ kotlin {
 
         androidMain {
             dependencies {
-                // Add Android-specific dependencies here. Note that this source set depends on
-                // commonMain by default and will correctly pull the Android artifacts of any KMP
-                // dependencies declared in commonMain.
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
             }
         }
 
@@ -108,6 +108,8 @@ kotlin {
                 // KMP dependencies declared in commonMain.
             }
         }
+
+
     }
 
 }

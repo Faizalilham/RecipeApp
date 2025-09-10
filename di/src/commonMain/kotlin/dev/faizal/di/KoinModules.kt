@@ -1,8 +1,8 @@
 package dev.faizal.di
 
 
-import dev.faizal.details.DetailViewModel
-import dev.faizal.home.HomeViewModel
+import dev.faizal.details.viewmodel.DetailViewModel
+import dev.faizal.home.viewmodel.HomeViewModel
 import dev.faizal.saved.SavedViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module

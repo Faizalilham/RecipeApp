@@ -73,6 +73,8 @@ kotlin {
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
 
+                implementation(project(path = ":domain"))
+                implementation(project(path = ":ui"))
                 implementation(project(path = ":shared"))
             }
         }

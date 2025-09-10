@@ -63,10 +63,16 @@ kotlin {
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
 
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.ktor.client.logging)
+
                 implementation(project(path = ":features:root:home"))
                 implementation(project(path = ":features:root:details"))
                 implementation(project(path = ":features:root:saved"))
-                implementation(project(path = ":shared"))
+                implementation(project(path = ":data"))
+                implementation(project(path = ":domain"))
             }
         }
 
@@ -78,9 +84,7 @@ kotlin {
 
         androidMain {
             dependencies {
-                // Add Android-specific dependencies here. Note that this source set depends on
-                // commonMain by default and will correctly pull the Android artifacts of any KMP
-                // dependencies declared in commonMain.
+                implementation(libs.ktor.client.okhttp)
             }
         }
 

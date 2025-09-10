@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.faizal.root.RootScreen
+import dev.faizal.onboarding.OnBoardingScreen
 import dev.faizal.settings.SettingsScreen
 import dev.faizal.shared.navigation.Screen
 
@@ -16,6 +17,15 @@ fun RootNavigationGraph(){
         navController = navController,
         startDestination = Screen.Root,
     ){
+
+        composable<Screen.OnBoarding> {
+            OnBoardingScreen(
+                navigateToHome = {
+                    navController.navigate(Screen.Root)
+                }
+            )
+        }
+
         composable<Screen.Root> {
             RootScreen(
                 navigateToSettings = {
