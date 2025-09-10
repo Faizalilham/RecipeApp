@@ -77,6 +77,8 @@ kotlin {
 
 
                 implementation(libs.coil3)
+                implementation(libs.compose.shimmer)
+                implementation(project(path = ":domain"))
                 implementation(project(path = ":shared"))
             }
         }

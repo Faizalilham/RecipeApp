@@ -13,20 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import dev.faizal.shared.component.RecipeView
-import dev.faizal.shared.domain.RecipeRepository
-import dev.faizal.shared.domain.foodRecipes
-import org.koin.compose.koinInject
+import dev.faizal.ui.RecipeView
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SavedScreen(
     navigateToDetails : (Int) -> Unit
 ){
-
-//    val repository = koinInject<RecipeRepository>()
-//    val viewModel = viewModel { SavedViewModel(repository) }
     val viewModel = koinViewModel<SavedViewModel>()
     val favoriteRecipes = viewModel.getSavedRecipes()
 

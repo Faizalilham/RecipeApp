@@ -1,4 +1,4 @@
-package dev.faizal.shared.component
+package dev.faizal.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -19,9 +19,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
-import dev.faizal.shared.domain.Recipe
 import androidx.compose.ui.text.font.FontWeight
-
+import dev.faizal.domain.model.recipe.Recipe
 
 @Composable
 fun RecipeView(
@@ -48,7 +47,7 @@ fun RecipeView(
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             modifier = Modifier.alpha(0.5f),
-            text = recipe.category,
+            text = recipe.sourceName ?: "",
             fontSize = MaterialTheme.typography.bodySmall.fontSize,
         )
         Text(
@@ -61,9 +60,9 @@ fun RecipeView(
             onClick = { /*TODO*/ },
             label = {
                 Text(
-                    text = "${recipe.preparationTime} Minutes",
+                    text = "${recipe.readyInMinutes} Minutes",
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    )
+                )
             },
             shape = CircleShape
         )

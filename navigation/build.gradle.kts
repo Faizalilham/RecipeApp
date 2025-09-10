@@ -70,6 +70,7 @@ kotlin {
                 implementation(libs.navigation.compose)
 
                 implementation(project(path = ":features:settings"))
+                implementation(project(path = ":features:onboarding"))
                 implementation(project(path = ":features:root"))
                 implementation(project(path = ":shared"))
             }
