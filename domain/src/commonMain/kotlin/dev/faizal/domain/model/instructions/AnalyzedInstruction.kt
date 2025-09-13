@@ -16,7 +16,14 @@ data class Step(
     val number: Int,
     val step: String,
     val ingredients: List<InstructionIngredient>,
-    val equipment: List<InstructionIngredient>
+    val equipment: List<Equipment>
+)
+
+data class Equipment(
+    val id: Int,
+    val name: String,
+    val localizedName: String,
+    val image: String
 )
 
 

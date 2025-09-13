@@ -10,7 +10,8 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 
 const val BASE_URL = "https://api.spoonacular.com"
-const val API_KEY = "5cfab6728c3646f4a8d586b5ac5ca4dc"
+const val API_KEY = "7ed2473af17d4dff9f899486b78b8a1b"
+//const val API_KEY = "5cfab6728c3646f4a8d586b5ac5ca4dc"
 
 class KtorRemoteRecipeDataSource(
     val httpClient: HttpClient
@@ -27,6 +28,7 @@ class KtorRemoteRecipeDataSource(
                 urlString = "$BASE_URL/recipes/random"
             ) {
                 parameter("number", 10)
+                parameter("includeNutrition", includeNutrition)
                 parameter("apiKey", API_KEY)
             }
         }
@@ -37,7 +39,7 @@ class KtorRemoteRecipeDataSource(
             httpClient.get(
                 urlString = "$BASE_URL/recipes/${recipeId}/information"
             ) {
-                parameter("includeNutrition", false)
+                parameter("includeNutrition", true)
                 parameter("apiKey", API_KEY)
             }
         }

@@ -71,6 +71,7 @@ kotlin {
                 implementation(libs.androidx.lifecycle.runtimeCompose)
 
                 implementation(project(path = ":shared"))
+                implementation(project(path = ":ui"))
             }
         }
 

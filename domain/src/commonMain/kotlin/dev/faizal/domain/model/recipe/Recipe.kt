@@ -2,6 +2,7 @@ package dev.faizal.domain.model.recipe
 
 import dev.faizal.domain.model.ingredient.Ingredient
 import dev.faizal.domain.model.instructions.AnalyzedInstruction
+import dev.faizal.domain.model.nutritions.Nutrition
 
 data class Recipe(
     val id: Int,
@@ -17,6 +18,7 @@ data class Recipe(
     val sourceName: String?,
     val pricePerServing: Double,
     val extendedIngredients: List<Ingredient>,
+    val nutrition: Nutrition,
     val summary: String?,
     val cuisines: List<String>,
     val dishTypes: List<String>,

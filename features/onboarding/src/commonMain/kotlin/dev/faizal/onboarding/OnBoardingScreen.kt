@@ -1,8 +1,6 @@
 package dev.faizal.onboarding
 
-
 import SlideToUnlock
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,13 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.faizal.shared.component.GradientView
-import org.jetbrains.compose.resources.painterResource
-import recipeapp.features.onboarding.generated.resources.Res
-import recipeapp.features.onboarding.generated.resources.on_boarding_image
 
 @Composable
 fun OnBoardingScreen(
