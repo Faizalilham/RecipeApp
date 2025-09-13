@@ -88,6 +88,8 @@ android {
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+//    debugImplementation(compose.uiTooling)
 }
 

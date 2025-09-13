@@ -67,6 +67,8 @@ kotlin {
                 implementation(compose.material3)
                 implementation(compose.ui)
                 implementation(compose.components.resources)
+                implementation(compose.preview)
+                implementation(compose.components.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
 
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
@@ -80,6 +82,7 @@ kotlin {
                 implementation(libs.compose.shimmer)
                 implementation(project(path = ":domain"))
                 implementation(project(path = ":shared"))
+                implementation(project(path = ":ui"))
             }
         }
 
@@ -91,12 +94,10 @@ kotlin {
 
         androidMain {
             dependencies {
-                // Add Android-specific dependencies here. Note that this source set depends on
-                // commonMain by default and will correctly pull the Android artifacts of any KMP
-                // dependencies declared in commonMain.
+                implementation(libs.androidx.ui.tooling.preview)
+
             }
         }
-
         getByName("androidDeviceTest") {
             dependencies {
                 implementation(libs.androidx.runner)

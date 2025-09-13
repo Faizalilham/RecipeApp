@@ -2,6 +2,7 @@ package dev.faizal.data.network.dto.recipe
 
 import dev.faizal.data.network.dto.ingredient.IngredientDto
 import dev.faizal.data.network.dto.instructions.AnalyzedInstructionDto
+import dev.faizal.data.network.dto.nutritions.NutritionDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -20,6 +21,7 @@ data class RecipeDto(
     @SerialName("sourceName") val sourceName: String?,
     @SerialName("pricePerServing") val pricePerServing: Double,
     @SerialName("extendedIngredients") val extendedIngredients: List<IngredientDto>,
+    @SerialName("nutrition") val nutrition: NutritionDto,
     @SerialName("summary") val summary: String?,
     @SerialName("cuisines") val cuisines: List<String>,
     @SerialName("dishTypes") val dishTypes: List<String>,

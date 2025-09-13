@@ -1,5 +1,6 @@
 package dev.faizal.data.network.dto.ingredient
 
+import dev.faizal.data.network.dto.measure.MeasuresDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,4 +17,5 @@ data class IngredientDto(
     @SerialName("amount") val amount: Double,
     @SerialName("unit") val unit: String?,
     @SerialName("meta") val meta: List<String>,
+    @SerialName("measures") val measures: MeasuresDto,
 )

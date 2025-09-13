@@ -1,5 +1,7 @@
 package dev.faizal.domain.model.ingredient
 
+import dev.faizal.domain.model.measure.Measures
+
 data class Ingredient(
     val id: Int,
     val aisle: String?,
@@ -11,5 +13,6 @@ data class Ingredient(
     val originalName: String,
     val amount: Double,
     val unit: String?,
-    val meta: List<String>
+    val meta: List<String>,
+    val measures : Measures
 )

@@ -75,6 +75,7 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.androidx.material3)
                 implementation(libs.compose.shimmer)
+                implementation(libs.coil3)
             }
         }
 
