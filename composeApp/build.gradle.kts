@@ -50,8 +50,13 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
 
+            api(libs.datastore)
+            api(libs.datastore.preferences)
+            api(libs.coil3)
+
             implementation(project(path = ":navigation"))
             implementation(project(path = ":shared"))
+            implementation(project(path = ":ui"))
             implementation(project(path = ":di"))
         }
         commonTest.dependencies {

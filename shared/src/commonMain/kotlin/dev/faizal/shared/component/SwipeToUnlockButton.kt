@@ -18,6 +18,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.SwipeProgress
 import androidx.compose.material.SwipeableDefaults
 import androidx.compose.material.SwipeableState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.material3.CircularProgressIndicator
@@ -41,8 +43,6 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
-import dev.faizal.shared.utils.Resources
-import org.jetbrains.compose.resources.painterResource
 import kotlin.math.roundToInt
 
 @Composable
@@ -168,11 +168,11 @@ fun Track(
 }
 
 val AlmostBlack = Color(0xFF111111)
-val White = Color(0xFF00000)
+val Green = Color(0xFF4CAF50)
 fun calculateTrackColor(swipeFraction: Float): Color {
     val endOfColorChangeFraction = 0.4f
     val fraction = (swipeFraction / endOfColorChangeFraction).coerceIn(0f..1f)
-    return lerp(AlmostBlack, White, fraction)
+    return lerp(AlmostBlack, Green, fraction)
 }
 
 @Composable
@@ -194,7 +194,7 @@ fun Thumb(
             )
         } else {
             Icon(
-                painter = painterResource(Resources.Icon.arrow),
+                imageVector = Icons.AutoMirrored.Default.ArrowForward,
                 contentDescription = null,
             )
         }
@@ -220,7 +220,7 @@ fun Hint(
 }
 
 fun calculateHintTextColor(swipeFraction: Float): Color {
-    val endOfFadeFraction = 0.35f
+    val endOfFadeFraction = 0.9f
     val fraction = (swipeFraction / endOfFadeFraction).coerceIn(0f..1f)
     return lerp(Color.White, Color.White.copy(alpha = 0f), fraction)
 }

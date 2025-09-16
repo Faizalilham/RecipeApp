@@ -2,7 +2,6 @@ package dev.faizal.data.network.config
 
 
 import dev.faizal.data.network.data.API_KEY
-import dev.faizal.shared.utils.AppLogger
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.HttpTimeout
@@ -37,7 +36,6 @@ object HttpClientFactory {
                 logger = object : Logger {
                     override fun log(message: String) {
                         println(message)
-                        AppLogger.d("KTOR_HTTP",message)
                     }
                 }
                 level = LogLevel.ALL

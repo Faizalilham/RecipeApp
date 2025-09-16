@@ -11,9 +11,11 @@ kotlin {
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
         namespace = "dev.faizal.onboarding"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
+
 
         withHostTestBuilder {
         }
@@ -69,6 +71,7 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
+                implementation(libs.coil3)
 
                 implementation(project(path = ":shared"))
                 implementation(project(path = ":ui"))

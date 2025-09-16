@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
-import dev.faizal.domain.model.ingredient.Ingredient
+import dev.faizal.domain.model.instructions.Equipment
 
 @Composable
-fun IngredientView(ingredient: Ingredient) {
+fun EquipmentView(equipment: Equipment){
     Row(
         modifier = Modifier.fillMaxWidth()
             .padding(horizontal = 8.dp, vertical = 4.dp),
@@ -41,16 +41,16 @@ fun IngredientView(ingredient: Ingredient) {
             contentAlignment = Alignment.Center
         ) {
 
-            if(ingredient.image != null){
+            if(equipment.image.isNotBlank()){
                 CoilImage(
-                    imageModel = { "https://img.spoonacular.com/ingredients_100x100/${ingredient.image}" },
+                    imageModel = { equipment.image },
                     imageOptions = ImageOptions(
                         contentScale = ContentScale.Crop,
                     )
                 )
             }else{
                 Text(
-                    text = ingredient.name.take(1).uppercase(),
+                    text = equipment.name.take(1).uppercase(),
                     fontWeight = FontWeight.Bold,
                     color = Color.DarkGray
                 )
@@ -61,21 +61,15 @@ fun IngredientView(ingredient: Ingredient) {
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = ingredient.name,
-                style = MaterialTheme.typography.bodyMedium,
+                text = equipment.name,
+                style = MaterialTheme.typography.bodySmall,
                 color = Color.Black
             )
             Text(
-                text = ingredient.original,
+                text = equipment.localizedName,
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Gray
             )
         }
-
-        Text(
-            text = "${ingredient.measures.us?.amount} ${ingredient.measures.us?.unitShort}",
-            style = MaterialTheme.typography.bodySmall,
-            color = Color.Gray
-        )
     }
 }
