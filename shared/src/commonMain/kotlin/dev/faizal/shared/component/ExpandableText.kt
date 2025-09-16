@@ -8,7 +8,9 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,10 +20,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.faizal.shared.utils.stripHtmlTags
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -29,7 +33,6 @@ fun ExpandableText(
     text: String,
     modifier: Modifier = Modifier,
     maxLines: Int = 3,
-    fontSize: TextUnit = 14.sp,
     animationDuration: Int = 300
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -45,10 +48,14 @@ fun ExpandableText(
             label = "expandableText"
         ) { expanded ->
             Text(
+                modifier = Modifier.fillMaxWidth(),
                 text = text,
+                color = Color.Gray,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
                 maxLines = if (expanded) Int.MAX_VALUE else maxLines,
                 overflow = TextOverflow.Ellipsis,
-                fontSize = fontSize,
                 onTextLayout = { textLayoutResult ->
                     if (textLayoutResult.hasVisualOverflow && !showButton) {
                         showButton = true
@@ -61,8 +68,8 @@ fun ExpandableText(
             Text(
                 text = if (isExpanded) "Show less" else "Show more",
                 color = Color.Blue,
-                fontSize = fontSize,
-                fontWeight = FontWeight.Medium,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
                 modifier = Modifier
                     .padding(top = 4.dp)
                     .clickable { isExpanded = !isExpanded }

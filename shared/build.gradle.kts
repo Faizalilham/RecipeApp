@@ -13,8 +13,8 @@ kotlin {
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
         namespace = "dev.faizal.shared"
-        compileSdk = libs.versions.android.compileSdk.get().toInt()
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        compileSdk = 35
+        minSdk = 24
 
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
 
@@ -35,7 +35,7 @@ kotlin {
     // A step-by-step guide on how to include this library in an XCode
     // project can be found here:
     // https://developer.android.com/kotlin/multiplatform/migrate
-    val xcfName = "sharedKit"
+    val xcfName = "shareKit"
 
     iosX64 {
         binaries.framework {
@@ -69,13 +69,16 @@ kotlin {
                 implementation(compose.material3)
                 implementation(compose.material)
                 implementation(compose.ui)
-                implementation(compose.components.resources)
+                api(compose.components.resources)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.koin.core)
                 implementation(libs.androidx.material3)
                 implementation(libs.compose.shimmer)
                 implementation(libs.coil3)
+
+                api(libs.datastore)
+                api(libs.datastore.preferences)
             }
         }
 
@@ -87,8 +90,7 @@ kotlin {
 
         androidMain {
             dependencies {
-                implementation(libs.koin.core)
-                implementation(libs.koin.compose)
+                implementation("com.google.accompanist:accompanist-swiperefresh:0.36.0")
             }
         }
 
@@ -109,8 +111,6 @@ kotlin {
                 // KMP dependencies declared in commonMain.
             }
         }
-
-
     }
 
 }

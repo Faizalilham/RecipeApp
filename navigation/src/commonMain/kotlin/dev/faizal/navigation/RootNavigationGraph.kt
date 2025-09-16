@@ -15,7 +15,7 @@ fun RootNavigationGraph(){
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Screen.Root,
+        startDestination = Screen.OnBoarding,
     ){
 
         composable<Screen.OnBoarding> {

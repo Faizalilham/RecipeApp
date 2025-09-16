@@ -71,7 +71,7 @@ fun SegmentedTabLayout(
                 .width(with(LocalDensity.current) { tabWidth.value.toDp() })
                 .fillMaxHeight()
                 .clip(RoundedCornerShape(12))
-                .background(Color(0xFF4CAF50))
+                .background(Color(0xFF111111))
         )
 
         Row(Modifier.fillMaxSize()) {

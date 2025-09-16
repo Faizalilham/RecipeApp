@@ -68,9 +68,14 @@ kotlin {
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.ktor.client.logging)
 
+                api(libs.datastore)
+                api(libs.datastore.preferences)
+
                 implementation(project(path = ":features:root:home"))
                 implementation(project(path = ":features:root:details"))
                 implementation(project(path = ":features:root:saved"))
+                implementation(project(path = ":features:settings"))
+                implementation(project(path = ":shared"))
                 implementation(project(path = ":data"))
                 implementation(project(path = ":domain"))
             }

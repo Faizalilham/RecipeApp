@@ -52,7 +52,7 @@ fun RecipeView(
         )
         Text(
             text = recipe.title,
-            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+            fontSize = MaterialTheme.typography.titleSmall.fontSize,
             fontWeight = FontWeight.Bold,
             maxLines = 2
         )
