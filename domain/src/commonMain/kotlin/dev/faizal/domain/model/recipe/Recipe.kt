@@ -12,6 +12,8 @@ data class Recipe(
     val readyInMinutes: Int,
     val servings: Int,
     val sourceUrl: String?,
+    val vegetarian : Boolean = false,
+    val vegan : Boolean = false,
     val cookingMinutes: Int?,
     val aggregateLikes: Int,
     val healthScore: Double,

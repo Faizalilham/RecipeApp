@@ -12,6 +12,8 @@ data class RecipeDto(
     @SerialName("image") val image: String?,
     @SerialName("imageType") val imageType: String?,
     @SerialName("title") val title: String,
+    @SerialName("vegetarian") val vegetarian: Boolean,
+    @SerialName("vegan") val vegan: Boolean,
     @SerialName("readyInMinutes") val readyInMinutes: Int,
     @SerialName("servings") val servings: Int,
     @SerialName("sourceUrl") val sourceUrl: String?,

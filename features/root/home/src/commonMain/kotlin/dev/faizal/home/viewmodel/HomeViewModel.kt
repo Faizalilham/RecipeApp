@@ -30,39 +30,39 @@ class HomeViewModel(
             else it.copy(isRefreshing = true)
         }
 
-        delay(500)
-        _state.update {
-            it.copy(
-                isLoading = false,
-                isRefreshing = false,
-                errorMessage = null,
-                recipes = RecipeDummyData.getDummyRecipes()
-            )
-        }
-//        repository.getRandomRecipe(
-//            includeNutrition = true,
-//            includeTags = "",
-//            excludeTags = "",
-//            number = 10
-//        ).onSuccess { recipes ->
-//            _state.update {
-//                it.copy(
-//                    isLoading = false,
-//                    isRefreshing = false,
-//                    errorMessage = null,
-//                    recipes = recipes
-//                )
-//            }
-//        }.onError { error ->
-//            _state.update {
-//                it.copy(
-//                    isLoading = false,
-//                    isRefreshing = false,
-//                    errorMessage = error.toUiText(),
-//                    recipes = emptyList()
-//                )
-//            }
+//        delay(500)
+//        _state.update {
+//            it.copy(
+//                isLoading = false,
+//                isRefreshing = false,
+//                errorMessage = null,
+//                recipes = RecipeDummyData.getDummyRecipes()
+//            )
 //        }
+        repository.getRandomRecipe(
+            includeNutrition = true,
+            includeTags = "",
+            excludeTags = "",
+            number = 10
+        ).onSuccess { recipes ->
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    isRefreshing = false,
+                    errorMessage = null,
+                    recipes = recipes
+                )
+            }
+        }.onError { error ->
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    isRefreshing = false,
+                    errorMessage = error.toUiText(),
+                    recipes = emptyList()
+                )
+            }
+        }
 
     }
 }

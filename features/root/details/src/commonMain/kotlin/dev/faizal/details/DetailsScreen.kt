@@ -48,6 +48,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
 import dev.faizal.details.components.DetailSkeletonScreen
+import dev.faizal.details.components.RecipeCategoryTags
 import dev.faizal.details.components.SegmentedTabLayout
 import dev.faizal.details.viewmodel.DetailViewModel
 import dev.faizal.domain.dummy.RecipeDummyData
@@ -56,6 +57,7 @@ import dev.faizal.domain.model.recipe.Recipe
 import dev.faizal.shared.component.ExpandableText
 import dev.faizal.shared.utils.stripHtmlTags
 import dev.faizal.ui.EquipmentView
+import dev.faizal.ui.InfoItem
 import dev.faizal.ui.IngredientView
 import dev.faizal.ui.InstructionView
 import dev.faizal.ui.StarRatingBar
@@ -86,13 +88,17 @@ fun DetailsScreen(
             }
 
             else -> {
-                DetailContent(
-                    tabs = tabs,
-                    selectedIndex = selectedIndex,
-                    onTabSelected = { selectedIndex = it },
-                    recipe = RecipeDummyData.getDummyRecipes().first { it.id == id },
-                    navigateBack = navigateBack
-                )
+                state.recipes?.let { recipe ->
+                    DetailContent(
+                        tabs = tabs,
+                        selectedIndex = selectedIndex,
+                        onTabSelected = { selectedIndex = it },
+                        recipe = recipe,
+                        navigateBack = navigateBack
+                    )
+                } ?: run {
+                    Text("Resep tidak ditemukan", modifier = Modifier.padding(16.dp))
+                }
             }
         }
     }
@@ -289,6 +295,12 @@ fun DetailContent(
                     }
                     Spacer(modifier = Modifier.height(12.dp))
 
+                    RecipeCategoryTags(
+                        dishTypes = recipe.dishTypes,
+                        isVegetarian = recipe.vegetarian,
+                        isVegan = recipe.vegan
+                    )
+
                     ExpandableText( text = recipe.summary?.stripHtmlTags() ?: "Not yet")
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -350,26 +362,6 @@ fun DetailContent(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun InfoItem(iconUrl: String, text: String) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        CoilImage(
-            imageModel = { iconUrl },
-            modifier = Modifier.size(20.dp)
-        )
-        Text(
-            text = text,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontWeight = FontWeight.Medium
-            )
-        )
     }
 }
 

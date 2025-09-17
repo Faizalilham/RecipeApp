@@ -68,6 +68,7 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
+                implementation(libs.kotlinx.datetime)
 
                 implementation(libs.koin.core)
                 implementation(libs.koin.compose)

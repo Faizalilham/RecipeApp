@@ -23,31 +23,31 @@ class DetailViewModel(
         _state.update {
             it.copy(isLoading = true)
         }
-        delay(500)
-        _state.update {
-            it.copy(
-                isLoading = false,
-                errorMessage = null,
-                recipes = null
-            )
-        }
-//        repository.getDetailRecipe(id)
-//            .onSuccess { recipe ->
-//                _state.update {
-//                    it.copy(
-//                        isLoading = false,
-//                        errorMessage = null,
-//                        recipes = recipe
-//                    )
-//                }
-//            }.onError { error ->
-//                _state.update {
-//                    it.copy(
-//                        isLoading = false,
-//                        errorMessage = error.toUiText(),
-//                        recipes = null
-//                    )
-//                }
-//            }
+//        delay(500)
+//        _state.update {
+//            it.copy(
+//                isLoading = false,
+//                errorMessage = null,
+//                recipes = null
+//            )
+//        }
+        repository.getDetailRecipe(id)
+            .onSuccess { recipe ->
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = null,
+                        recipes = recipe
+                    )
+                }
+            }.onError { error ->
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = error.toUiText(),
+                        recipes = null
+                    )
+                }
+            }
     }
 }

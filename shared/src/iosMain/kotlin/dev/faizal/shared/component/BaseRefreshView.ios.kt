@@ -30,3 +30,4 @@ actual fun BaseRefreshView(
             modifier = Modifier.align(Alignment.TopCenter)
         )
     }
+}

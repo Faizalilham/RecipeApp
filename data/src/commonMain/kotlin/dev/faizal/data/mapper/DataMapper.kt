@@ -41,6 +41,8 @@ object DataMapper {
             title = title,
             readyInMinutes = readyInMinutes,
             servings = servings,
+            vegetarian = vegetarian,
+            vegan = vegan,
             sourceUrl = sourceUrl,
             cookingMinutes = cookingMinutes,
             aggregateLikes = aggregateLikes,

@@ -21,6 +21,9 @@ serialization = "1.7.3"
 navigation = "2.8.0-alpha10"
 landscapist = "2.4.0"
 
+# Kotlin Date Time
+kotlinxDatetime = "0.6.1"
+
 # Store
 datastore = "1.1.1"
 
@@ -32,6 +35,9 @@ coroutines = "1.7.3"
 
 # Ktor (Network)
 ktor = "3.0.0"
+
+# Screen Size
+size = "0.5.0"
 
 [libraries]
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
@@ -53,6 +59,13 @@ coil3 = { module = "com.github.skydoves:landscapist-coil3", version.ref = "lands
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
+
+
+# Kotlin Date Time
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+
+# Screen Size
+screen-size = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "size" }
 
 # Store
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
