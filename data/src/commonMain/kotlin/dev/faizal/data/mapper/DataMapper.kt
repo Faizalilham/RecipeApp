@@ -45,6 +45,8 @@ object DataMapper {
             vegan = vegan,
             sourceUrl = sourceUrl,
             cookingMinutes = cookingMinutes,
+            veryPopular = veryPopular,
+            veryHealthy = veryHealthy,
             aggregateLikes = aggregateLikes,
             healthScore = healthScore,
             sourceName = sourceName,

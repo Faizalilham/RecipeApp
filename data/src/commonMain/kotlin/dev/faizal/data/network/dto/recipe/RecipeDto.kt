@@ -18,6 +18,8 @@ data class RecipeDto(
     @SerialName("servings") val servings: Int,
     @SerialName("sourceUrl") val sourceUrl: String?,
     @SerialName("cookingMinutes") val cookingMinutes: Int?,
+    @SerialName("veryPopular") val veryPopular: Boolean,
+    @SerialName("veryHealthy") val veryHealthy: Boolean,
     @SerialName("aggregateLikes") val aggregateLikes: Int,
     @SerialName("healthScore") val healthScore: Double,
     @SerialName("sourceName") val sourceName: String?,

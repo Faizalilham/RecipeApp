@@ -2,6 +2,7 @@ package dev.faizal.data.network.data
 
 import dev.faizal.data.network.dto.recipe.RecipeDto
 import dev.faizal.data.network.dto.recipe.RecipeDtoResponse
+import dev.faizal.data.network.dto.recipe.SearchRecipeDtoResponse
 import dev.faizal.shared.wrapper.DataError
 import dev.faizal.shared.wrapper.Result
 
@@ -15,5 +16,7 @@ interface RemoteRecipeDataSource {
     ): Result<RecipeDtoResponse, DataError.Remote>
 
     suspend fun getDetailRecipe(recipeId : Int): Result<RecipeDto, DataError.Remote>
+
+    suspend fun searchRecipe(query : String, sort : String?, number : Int,offset : Int): Result<SearchRecipeDtoResponse, DataError.Remote>
 
 }

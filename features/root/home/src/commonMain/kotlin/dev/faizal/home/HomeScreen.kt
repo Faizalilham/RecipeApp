@@ -1,10 +1,16 @@
 package dev.faizal.home
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,45 +18,51 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.faizal.home.viewmodel.HomeViewModel
-import org.koin.compose.viewmodel.koinViewModel
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.faizal.home.viewmodel.HomeState
+import dev.faizal.home.viewmodel.HomeViewModel
 import dev.faizal.shared.component.BaseRefreshView
 import dev.faizal.shared.component.RecipeSkeletonView
-import dev.faizal.ui.RecipeView
-import kotlinx.datetime.toLocalDateTime
-import kotlin.time.ExperimentalTime
-import androidx.compose.runtime.Composable
+import dev.faizal.ui.SnapCarouselRecipeList
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import org.koin.compose.viewmodel.koinViewModel
+import kotlin.time.ExperimentalTime
 
 @Composable
 fun HomeScreen(
-    navigateToDetails : (Int) -> Unit
+    navigateToDetails : (Int) -> Unit,
+    navigateToSettings : () -> Unit
 ){
     val viewModel = koinViewModel<HomeViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -64,92 +76,113 @@ fun HomeScreen(
             isRefreshing = state.isRefreshing,
             onRefresh = { viewModel.getAllRecipe() }
         ) {
-            HomeContent{
-                RecipeList(
-                    state = state,
-                    refreshData = viewModel::getAllRecipe,
-                    navigateToDetails = navigateToDetails
-                )
-            }
+            HomeContent(
+                navigateToSettings = navigateToSettings,
+                content = {
+                    RecipeList(
+                        state = state,
+                        refreshData = {
+                            viewModel.getAllRecipe(initialLoad = true)
+                        },
+                        navigateToDetails = navigateToDetails
+                    )
+                }
+            )
         }
     }
 }
 
 @Composable
 fun HomeContent(
-    content: @Composable () -> Unit
+    navigateToSettings: () -> Unit,
+    content: @Composable () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp)
     ) {
-        Text(
-            text = getGreetingMessage(),
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(bottom = 4.dp)
-        )
-        Text(
-            text = "Let's cook something\nunique today 🔥",
-            style = MaterialTheme.typography.titleLarge,
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                modifier = Modifier.weight(1f).padding(end = 16.dp)
+            ) {
+                Text(
+                    text = getGreetingMessage(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                Text(
+                    text = "Let's cook something\nunique today 🔥",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontSize = 28.sp
+                )
+            }
+            IconButton(
+                onClick = navigateToSettings,
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .border(
+                        width = 1.dp,
+                        color = Color.LightGray,
+                        shape = CircleShape
+                    )
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Settings,
+                    contentDescription = "Settings",
+                    tint = Color.Black
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             Card(
                 modifier = Modifier
-                    .fillMaxWidth().weight(1f),
-                shape = RoundedCornerShape(8.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                border = BorderStroke(1.dp, Color.LightGray)
+                    .weight(1f)
+                    .clickable { /* Arahkan ke halaman search */ },
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color(0xFFF5F5F5)
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
             ) {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = "Search",
-                        tint = Color.Gray,
-                        modifier = Modifier.padding(start = 16.dp)
+                        tint = Color.Gray
                     )
-
-                    OutlinedTextField(
-                        value = "",
-                        onValueChange = {  },
-                        placeholder = {
-                            Text(
-                                text = "Try 'Italian Lasagna'",
-                                color = Color.LightGray,
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        },
-                        modifier = Modifier
-                            .weight(1f)
-                            .clickable {  },
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Transparent,
-                            unfocusedContainerColor = Color.Transparent,
-                            disabledContainerColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent,
-                            disabledIndicatorColor = Color.Transparent
-                        ),
-                        singleLine = true,
-                        readOnly = true,
-                        enabled = false
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Try 'Italian Lasagna'",
+                        color = Color.LightGray,
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }
 
+            // Filter Icon Card
             Card(
                 modifier = Modifier.size(56.dp),
                 shape = RoundedCornerShape(8.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.LightGray),
+                colors = CardDefaults.cardColors(containerColor = Color(0XFFF5F6F8)),
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -178,33 +211,21 @@ fun RecipeList(
 ){
     when {
         state.isLoading -> {
-            LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Fixed(count = 2),
-                verticalItemSpacing = 12.dp,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp)
             ){
                 items(10) {
                     RecipeSkeletonView()
                 }
             }
-
         }
         state.recipes.isNotEmpty() -> {
-            LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Fixed(count = 2),
-                verticalItemSpacing = 12.dp,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ){
-                items(
-                    items = state.recipes,
-                    key = { it.id }
-                ) {
-                    RecipeView(
-                        recipe = it,
-                        onClick = navigateToDetails
-                    )
-                }
-            }
+
+            SnapCarouselRecipeList(
+                recipes = state.recipes,
+                navigateToDetails = navigateToDetails
+            )
         }
         else -> {
             Box(
@@ -220,7 +241,7 @@ fun RecipeList(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
-                        onClick = refreshData // viewModel.getAllRecipe(initialLoad = true)
+                        onClick = refreshData
                     ) {
                         Text("Retry")
                     }

@@ -37,6 +37,9 @@ fun BottomBarNavigationGraph(
                         navController.navigate(
                             Screen.Details(recipeId)
                         )
+                    },
+                    navigateToSettings = {
+                        navController.navigate(Screen.Settings)
                     }
                 )
             }

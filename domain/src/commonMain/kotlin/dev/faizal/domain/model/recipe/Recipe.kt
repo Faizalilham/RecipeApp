@@ -15,6 +15,8 @@ data class Recipe(
     val vegetarian : Boolean = false,
     val vegan : Boolean = false,
     val cookingMinutes: Int?,
+    val veryPopular : Boolean = false,
+    val veryHealthy: Boolean = false,
     val aggregateLikes: Int,
     val healthScore: Double,
     val sourceName: String?,

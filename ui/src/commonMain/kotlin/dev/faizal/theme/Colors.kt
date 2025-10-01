@@ -8,7 +8,7 @@ val PrimaryContainer = Color(0xFFFED053)     // Variasi container
 val Secondary = Color(0xFFF9BE08)            // Kuning sekunder
 
 // Light Theme
-val SurfaceLight = Color(0xFFF9F8F4)         // Background/surface terang
+val SurfaceLight = Color(0xFFFFFFFF)         // Background/surface terang
 val OnSurfaceLight = Color(0xFF1A1A19)       // Teks utama gelap
 val OnSurfaceVariantLight = Color(0xFF4A4A47) // Teks sekunder abu gelap
 val SurfaceContainerLowestLight = Color(0xFFF9F8F4)
