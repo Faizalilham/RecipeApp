@@ -45,7 +45,7 @@ val Typography : Typography @Composable get() = Typography(
         fontFamily = inter,
         fontWeight = FontWeight.Normal,
         fontSize = 17.sp,
-        lineHeight = 24.sp
+        lineHeight = 28.sp
     ),
     bodyMedium = TextStyle(
         fontFamily = inter,
@@ -69,6 +69,12 @@ val Typography : Typography @Composable get() = Typography(
         fontFamily = space,
         fontWeight = FontWeight.Bold,
         fontSize = 48.sp,
+        lineHeight = 20.sp
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = space,
+        fontWeight = FontWeight.Bold,
+        fontSize = 32.sp,
         lineHeight = 20.sp
     ),
     titleLarge = TextStyle(

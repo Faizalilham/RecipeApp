@@ -27,4 +27,13 @@ class RecipeRepositoryImpl(
     override suspend fun getDetailRecipe(recipeId: Int): Result<Recipe, DataError.Remote> {
         return recipeRemoteRecipeDataSource.getDetailRecipe(recipeId).map { dto -> dto.toDomain() }
     }
+
+    override suspend fun searchRecipe(
+        query: String,
+        sort: String?,
+        number: Int,
+        offset: Int
+    ): Result<List<Recipe>, DataError.Remote> {
+        TODO("Not yet implemented")
+    }
 }

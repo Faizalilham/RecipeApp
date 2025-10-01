@@ -8,10 +8,11 @@ import dev.faizal.shared.wrapper.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import dev.faizal.data.BuildKonfig
+import dev.faizal.data.network.dto.recipe.SearchRecipeDtoResponse
 
-const val BASE_URL = "https://api.spoonacular.com"
-const val API_KEY = "7ed2473af17d4dff9f899486b78b8a1b"
-//const val API_KEY = "5cfab6728c3646f4a8d586b5ac5ca4dc"
+val BASE_URL = BuildKonfig.BASE_URL
+val API_KEY = BuildKonfig.API_KEY
 
 class KtorRemoteRecipeDataSource(
     val httpClient: HttpClient
@@ -41,6 +42,25 @@ class KtorRemoteRecipeDataSource(
             ) {
                 parameter("includeNutrition", true)
                 parameter("apiKey", API_KEY)
+            }
+        }
+    }
+
+    override suspend fun searchRecipe(
+        query: String,
+        sort: String?,
+        number: Int,
+        offset: Int
+    ): Result<SearchRecipeDtoResponse, DataError.Remote> {
+        return safeCall<SearchRecipeDtoResponse> {
+            httpClient.get(
+                urlString = "$BASE_URL/recipes/complexSearch"
+            ) {
+                parameter("query", query)
+                parameter("number", number)
+                parameter("offset", offset)
+                parameter("apiKey", API_KEY)
+                sort?.let { parameter("sort",it) }
             }
         }
     }

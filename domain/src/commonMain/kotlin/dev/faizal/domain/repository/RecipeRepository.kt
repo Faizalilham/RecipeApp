@@ -14,4 +14,6 @@ interface RecipeRepository {
     ): Result<List<Recipe>, DataError.Remote>
 
     suspend fun getDetailRecipe(recipeId : Int): Result<Recipe, DataError.Remote>
+
+    suspend fun searchRecipe(query : String, sort : String?, number : Int,offset : Int): Result<List<Recipe>, DataError.Remote>
 }

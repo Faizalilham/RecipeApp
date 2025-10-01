@@ -27,11 +27,7 @@ fun RootNavigationGraph(){
         }
 
         composable<Screen.Root> {
-            RootScreen(
-                navigateToSettings = {
-                    navController.navigate(Screen.Settings)
-                }
-            )
+            RootScreen()
         }
 
         composable<Screen.Settings> {

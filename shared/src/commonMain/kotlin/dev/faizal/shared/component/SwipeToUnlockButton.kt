@@ -168,11 +168,11 @@ fun Track(
 }
 
 val AlmostBlack = Color(0xFF111111)
-val Green = Color(0xFF4CAF50)
+val Yellow = Color(0xFFEFD30B)
 fun calculateTrackColor(swipeFraction: Float): Color {
     val endOfColorChangeFraction = 0.4f
     val fraction = (swipeFraction / endOfColorChangeFraction).coerceIn(0f..1f)
-    return lerp(AlmostBlack, Green, fraction)
+    return lerp(AlmostBlack, Yellow, fraction)
 }
 
 @Composable
